@@ -39,11 +39,8 @@ function LoginPage() {
         notification({ type: 'error', message: 'invalid password' });
         return;
       }
-      notification({
-        type: 'Success',
-        message: 'Auth success',
-      });
       setLS('auth', true);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

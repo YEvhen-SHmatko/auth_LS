@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 import routes from '../routes';
-import { getLS } from '../helpers/localStorage';
+import { getLS, setLS } from '../helpers/localStorage';
 import AuthWrap from '../helpers/AuthWrap';
 
 function App() {
@@ -19,13 +19,24 @@ function App() {
         <NotificationContainer />
         <header className="App-header">
           {auth && (
-            <NavLink
-              to={routes.Root.path}
-              className="link"
-              activeClassName="link_active"
-            >
-              Home
-            </NavLink>
+            <>
+              <NavLink
+                to={routes.Root.path}
+                className="link"
+                activeClassName="link_active"
+              >
+                Home
+              </NavLink>
+              <button
+                type="button"
+                onClick={() => {
+                  setLS('auth', false);
+                  window.location.reload();
+                }}
+              >
+                exit
+              </button>
+            </>
           )}
           {!auth && (
             <>
@@ -54,6 +65,7 @@ function App() {
                 auth={auth}
                 path={routes.Home.path}
                 component={routes.Home.component}
+                redirect
               />
               <AuthWrap
                 exact
@@ -69,6 +81,7 @@ function App() {
                 component={routes.Auth.Signup.component}
                 redirect={routes.Home.path}
               />
+              <Redirect to={auth ? routes.Home.path : routes.Auth.Login.path} />
             </Switch>
           </Suspense>
         </main>
