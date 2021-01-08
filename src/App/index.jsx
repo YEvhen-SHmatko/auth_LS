@@ -65,21 +65,21 @@ function App() {
                 auth={auth}
                 path={routes.Home.path}
                 component={routes.Home.component}
-                redirect
+                goTo={routes.Auth.Login.path}
               />
               <AuthWrap
                 exact
                 auth={!auth}
                 path={routes.Auth.Login.path}
                 component={routes.Auth.Login.component}
-                redirect={routes.Home.path}
+                goTo={routes.Home.path}
               />
               <AuthWrap
                 exact
                 auth={!auth}
                 path={routes.Auth.Signup.path}
                 component={routes.Auth.Signup.component}
-                redirect={routes.Home.path}
+                goTo={routes.Home.path}
               />
               <Redirect to={auth ? routes.Home.path : routes.Auth.Login.path} />
             </Switch>
